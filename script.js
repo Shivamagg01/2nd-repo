@@ -7,33 +7,37 @@ function addTask() {
   if (taskText !== "") {
     const taskList = document.getElementById("taskList");
 
-    // Create list item and span for task text
     const li = document.createElement("li");
     const span = document.createElement("span");
     span.textContent = taskText;
     span.classList.add("task-text");
 
-    // Edit button
+    // ✅ Completed button
+    const completeBtn = document.createElement("button");
+    completeBtn.textContent = "Completed";
+    completeBtn.classList.add("complete-btn");
+    completeBtn.onclick = () => {
+      span.classList.toggle("completed"); // Toggle a CSS class
+    };
+
+    // ✏️ Edit button
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
     editBtn.classList.add("edit-btn");
     editBtn.onclick = () => editTask(span);
 
-    // Delete button
+    // ❌ Delete button
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.classList.add("delete-btn");
     deleteBtn.onclick = () => li.remove();
 
-    // Add all to the list item
     li.appendChild(span);
+    li.appendChild(completeBtn);
     li.appendChild(editBtn);
     li.appendChild(deleteBtn);
-
-    // Add to the task list
     taskList.appendChild(li);
 
-    // Clear input
     input.value = "";
   }
 }
@@ -44,7 +48,6 @@ function editTask(span) {
   input.type = "text";
   input.value = currentText;
 
-  // Replace span with input
   span.replaceWith(input);
   input.focus();
 
